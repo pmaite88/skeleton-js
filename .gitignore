@@ -1,0 +1,10 @@
+# client
+.next
+
+# api
+dist
+
+# common
+.env
+node_modules
+

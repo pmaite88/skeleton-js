@@ -1,2 +1,0 @@
-# skeleton-js
-Skeleton-js
