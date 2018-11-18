@@ -1,7 +1,23 @@
 type Mutation {
-  hi: String
+  signup(
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+  ): User!
 }
 
 type Query {
   question: String!
+  user: [User]
+}
+
+type User {
+  id: ID! # unique!!!!
+  email: String! # unique!!!!
+  firstName: String!
+  lastName: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiray: Float
 }
