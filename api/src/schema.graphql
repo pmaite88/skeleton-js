@@ -9,7 +9,8 @@ type Mutation {
 
 type Query {
   question: String!
-  user: [User]
+  me: User
+  user(email: String!): User
 }
 
 type User {

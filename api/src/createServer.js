@@ -22,7 +22,7 @@ const createServer = () => {
       Mutation,
       Query
     },
-    context: { db }
+    context: req => req
   });
 };
 
