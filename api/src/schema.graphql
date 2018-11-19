@@ -1,4 +1,20 @@
+type SuccessMessage {
+  message: String
+}
+
+type User {
+  id: ID! # unique!!!!
+  email: String! # unique!!!!
+  firstName: String!
+  lastName: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiray: Float
+}
+
 type Mutation {
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
   signup(
     email: String!
     password: String!
@@ -11,14 +27,4 @@ type Query {
   question: String!
   me: User
   user(email: String!): User
-}
-
-type User {
-  id: ID! # unique!!!!
-  email: String! # unique!!!!
-  firstName: String!
-  lastName: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiray: Float
 }

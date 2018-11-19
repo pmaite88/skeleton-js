@@ -7,19 +7,9 @@ import { render } from 'react-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $password: String!
-  ) {
-    signup(
-      email: $email
-      firstName: $firstName
-      lastName: $lastName
-      password: $password
-    ) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       email
       firstName
       lastName
@@ -27,19 +17,23 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-const Signup = () => (
+const Signin = () => (
   <Mutation
-    mutation={SIGNUP_MUTATION}
+    mutation={SIGNIN_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}
   >
-    {(signup, { error, loading }) => (
+    {(signin, { error, loading }) => (
       <Formik
-        initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
-        onSubmit={async (values, { resetForm }) => {
-          await signup({
-            variables: values
-          });
-          resetForm();
+        initialValues={{ email: '', password: '' }}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            await signin({
+              variables: values
+            });
+            resetForm();
+          } catch (_error) {
+            setSubmitting(false);
+          }
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()
@@ -55,8 +49,7 @@ const Signup = () => (
             dirty,
             isSubmitting,
             handleChange,
-            handleSubmit,
-            handleReset
+            handleSubmit
           } = props;
 
           return (
@@ -78,30 +71,6 @@ const Signup = () => (
                 }
               />
               <input
-                id="firstName"
-                placeholder="Enter your first name"
-                type="text"
-                onChange={handleChange}
-                value={values.firstName}
-                className={
-                  errors.firstName && touched.firstName
-                    ? 'text-input error'
-                    : 'text-input'
-                }
-              />
-              <input
-                id="lastName"
-                placeholder="Enter your last name"
-                type="text"
-                onChange={handleChange}
-                value={values.lastName}
-                className={
-                  errors.lastName && touched.lastName
-                    ? 'text-input error'
-                    : 'text-input'
-                }
-              />
-              <input
                 id="password"
                 placeholder="Enter your password"
                 type="text"
@@ -117,14 +86,6 @@ const Signup = () => (
                 <div className="input-feedback">{errors.email}</div>
               )}
 
-              <button
-                type="button"
-                className="outline"
-                onClick={handleReset}
-                disabled={!dirty || isSubmitting}
-              >
-                Reset
-              </button>
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
@@ -136,5 +97,5 @@ const Signup = () => (
   </Mutation>
 );
 
-export default Signup;
-export { SIGNUP_MUTATION };
+export default Signin;
+export { SIGNIN_MUTATION };

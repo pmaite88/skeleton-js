@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const CURRENT_USER_QUERY = gql`
-  query {
+  query CURRENT_USER_QUERY {
     me {
       email
       firstName
@@ -13,7 +13,7 @@ const CURRENT_USER_QUERY = gql`
 
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
-    {result => props.children(result)}
+    {payload => props.children(payload)}
   </Query>
 );
 

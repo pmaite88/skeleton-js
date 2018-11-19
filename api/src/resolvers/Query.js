@@ -9,14 +9,16 @@ const Query = {
     return `Tonight we eat ${answer}`;
   },
 
-  me: async (parent, args, { db }) => {
-    const user = await User.findOne();
-
-    return user;
+  me: async (_parent, _args, ctx) => {
+    // check if there is a current user ID
+    if (!ctx.request.userId) {
+      return null;
+    }
+    return await User.findOne({ id: ctx.request.userId });
   },
 
-  user: async (parent, args, { db }) => {
-    const user = await User.findOne({ email: args.email });
+  user: async (_parent, { email }) => {
+    const user = await User.findOne({ email });
 
     return user;
   }

@@ -9,6 +9,9 @@ export default () => (
     <Link href="/signup">
       <a> Go To SIGNUP Page</a>
     </Link>
+    <Link href="/signin">
+      <a> Go To SIGNIN Page</a>
+    </Link>
     <Link href="/profile">
       <a> Go To PROFILE Page</a>
     </Link>
