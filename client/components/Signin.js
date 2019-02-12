@@ -6,6 +6,7 @@ import ErrorMessage from './ErrorMessage';
 import { render } from 'react-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import redirect from '../lib/redirect';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -31,6 +32,7 @@ const Signin = () => (
               variables: values
             });
             resetForm();
+            redirect({}, '/');
           } catch (_error) {
             setSubmitting(false);
           }
@@ -54,6 +56,7 @@ const Signin = () => (
 
           return (
             <form onSubmit={handleSubmit}>
+              <p>Please sign in</p>
               <ErrorMessage error={error} />
               <label htmlFor="email" style={{ display: 'block' }}>
                 Email
@@ -85,7 +88,6 @@ const Signin = () => (
               {errors.email && touched.email && (
                 <div className="input-feedback">{errors.email}</div>
               )}
-
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>

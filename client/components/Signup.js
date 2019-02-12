@@ -6,6 +6,7 @@ import ErrorMessage from './ErrorMessage';
 import { render } from 'react-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import redirect from '../lib/redirect';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -40,6 +41,7 @@ const Signup = () => (
             variables: values
           });
           resetForm();
+          redirect({}, '/');
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()

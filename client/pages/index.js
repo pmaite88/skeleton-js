@@ -1,19 +1,9 @@
-import Link from 'next/link';
+import HomeButton from '../components/HomeButton';
+import PleaseSignIn from '../components/PleaseSignIn';
 
 export default () => (
-  <div>
-    Index Page
-    <Link href="/secondPage">
-      <a> Go To Second Page</a>
-    </Link>
-    <Link href="/signup">
-      <a> Go To SIGNUP Page</a>
-    </Link>
-    <Link href="/signin">
-      <a> Go To SIGNIN Page</a>
-    </Link>
-    <Link href="/profile">
-      <a> Go To PROFILE Page</a>
-    </Link>
-  </div>
+  <PleaseSignIn>
+    Index Page!
+    <HomeButton />
+  </PleaseSignIn>
 );

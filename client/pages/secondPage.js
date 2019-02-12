@@ -1,12 +1,11 @@
-import Link from 'next/link';
+import HomeButton from '../components/HomeButton';
 import Item from '../components/Item';
+import PleaseSignIn from '../components/PleaseSignIn';
 
 export default () => (
-  <div>
-    Second Page
+  <PleaseSignIn>
+    Second Page - You can see this because you are logged in!
     <Item />
-    <Link href="/">
-      <a> Return to First Page</a>
-    </Link>
-  </div>
+    <HomeButton />
+  </PleaseSignIn>
 );

@@ -1,12 +1,11 @@
-import Link from 'next/link';
+import HomeButton from '../components/HomeButton';
+import PleaseSignIn from '../components/PleaseSignIn';
 import Profile from '../components/Profile';
 
 export default () => (
-  <div>
-    Profile Page
+  <PleaseSignIn>
+    Your profile!
     <Profile />
-    <Link href="/">
-      <a> Return to First Page</a>
-    </Link>
-  </div>
+    <HomeButton />
+  </PleaseSignIn>
 );

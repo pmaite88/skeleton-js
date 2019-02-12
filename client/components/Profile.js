@@ -1,35 +1,20 @@
-import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import Link from 'next/link';
+import { Mutation } from 'react-apollo';
+import User from './User';
 import Signout from './Signout';
 
-const PROFILE_QUERY = gql`
-  query PROFILE_QUERY {
-    me {
-      email
-      firstName
-      lastName
-    }
-  }
-`;
-
-const Profile = props => (
-  <Query query={PROFILE_QUERY} fetchPolicy="network-only">
-    {({ data, error, loading }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error: {error.message}</p>;
-      if (data.me) {
-        return (
-          <div>
-            {data.me.email}
-            <Signout />{' '}
-          </div>
-        );
-      } else {
-        return <div> Please log in </div>;
+export default () => (
+  <User>
+    {({
+      data: {
+        me: { email, firstName, lastName }
       }
-    }}
-  </Query>
+    }) => (
+      <div>
+        <p> Email: {email}</p>
+        <p> FirstName: {firstName}</p>
+        <p> LastName: {lastName}</p>
+      </div>
+    )}
+  </User>
 );
-
-export default Profile;
